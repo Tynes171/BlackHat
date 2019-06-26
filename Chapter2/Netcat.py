@@ -1,3 +1,6 @@
+#! /usr/bin/python
+
+
 import sys
 import socket
 import getopt
@@ -8,7 +11,9 @@ import subprocess
 listen = False
 command = False
 upload = False
-execute = target = upload_destination = ""
+execute = ""
+target = ""
+upload_destination = ""
 port = 0
 
 def usage():
@@ -42,7 +47,7 @@ def main():
 		usage()
 
 	try:
-		opts, args = getopt.getopt("hle:t:p:cu:", 
+		opts, args = getopt.getopt(sys.argv[1:], "hle:t:p:cu:", 
 			["help", "listen", "execute", "target", "port", "command", "upload"])
 
 	except getopt.GetoptError as err:
@@ -66,7 +71,7 @@ def main():
 		elif o in ("-u", "--upload"):
 			upload_destination = a
 
-		elif o in ("t", "target"):
+		elif o in ("-t", "target"):
 			target = a
 
 		elif o in ("-p", "--port"):
@@ -74,7 +79,7 @@ def main():
 
 		else:
 
-			assert False, "Unhandled Option"
+                        assert False, "Unhandled Option"
 
 
         if not listen and len(target) and port > 0:
@@ -171,7 +176,7 @@ def run_command(command):
 
         try:
                 output = subprocess.check_output(command,
-                                                 stderr = subprocess.STDOUT, shell = True)
+                                stderr = subprocess.STDOUT, shell = True)
 
         except:
                 output = "Failed to execute command. \r\n"
