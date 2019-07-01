@@ -1,3 +1,6 @@
+#! /usr/bin/python
+
+
 import sys, socket, threading
 
 def server_loop(local_host, local_port, remote_host, remote_port, receive_first):
@@ -155,7 +158,7 @@ def hexdump(src, length = 16):
 
 		s = src[i: i + length]
 		hexa = b' '.join(["%O*X" %(digits, ord(x)) for x in s])
-		text = b''.join([x if 0x20 <= ord(x) < 0x7F else b '.' for x in s])
+		text = b''.join([x if 0x20 <= ord(x) < 0x7F else b'.' for x in s])
 
 		result.append(b"%O4X %-*s %s" % (i, length*(digits+1), hexa, text))
 
